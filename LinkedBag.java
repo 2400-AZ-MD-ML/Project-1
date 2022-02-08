@@ -6,12 +6,12 @@
     @author Frank M. Carrano, Timothy M. Henry
     @version 5.0
 */
-public final class LinkedBag1<T> implements BagInterface<T>
+public final class LinkedBag<T> implements BagInterface<T>
 {
 	private Node firstNode;       // Reference to first node
 	private int numberOfEntries;
 
-	public LinkedBag1()
+	public LinkedBag()
 	{
 		firstNode = null;
       numberOfEntries = 0;
@@ -107,7 +107,18 @@ public final class LinkedBag1<T> implements BagInterface<T>
    {
       return false; // STUB
    } // end contains
-
+   public BagInterface<T> union(BagInterface<T> bag2){
+	BagInterface<T> result = new ResizableArrayBag<>(3);
+	return result;
+ }
+ public BagInterface<T> difference(BagInterface<T> bag2){
+	BagInterface<T> result = new ResizableArrayBag<>(3);
+	return result;
+ }
+ public BagInterface<T> intersect(BagInterface<T> bag2){
+	BagInterface<T> result = new ResizableArrayBag<>(3);
+	return result;
+ }
 	private class Node
 	{
 	  private T    data; // Entry in bag

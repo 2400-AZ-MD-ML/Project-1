@@ -8,7 +8,7 @@ public class LinkedBagDemo1
 	public static void main(String[] args) 
 	{
       System.out.println("Creating an empty bag.");
-      BagInterface<String> aBag = new LinkedBag1<>();
+      BagInterface<String> aBag = new LinkedBag<>();
       testIsEmpty(aBag, true);
 		displayBag(aBag);
       
