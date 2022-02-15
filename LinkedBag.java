@@ -97,7 +97,21 @@ public final class LinkedBag<T> implements BagInterface<T>
 		 @return  The number of times anEntry appears in the bag. */
 	public int getFrequencyOf(T anEntry)
    {
+<<<<<<< HEAD
       return 0; // STUB
+=======
+      int frequency = 0;
+	  int counter = 0;
+	  Node currentNode = firstNode; 
+	  while((counter<numberOfEntries)&& (currentNode != null)){
+		  if(anEntry.equals(currentNode.data)){
+			  frequency++;
+		  }
+		  counter++;
+		  currentNode = currentNode.next;
+	  }
+	  return frequency;
+>>>>>>> b529e9a (added methods but no comments yet)
    } // end getFrequencyOf
 	
 	/** Tests whether this bag contains a given entry.
@@ -105,6 +119,7 @@ public final class LinkedBag<T> implements BagInterface<T>
 		 @return  True if the bag contains anEntry, or false otherwise. */
 	public boolean contains(T anEntry)
    {
+<<<<<<< HEAD
       return false; // STUB
    } // end contains
    public BagInterface<T> union(BagInterface<T> bag2){
@@ -117,6 +132,54 @@ public final class LinkedBag<T> implements BagInterface<T>
  }
  public BagInterface<T> intersect(BagInterface<T> bag2){
 	BagInterface<T> result = new ResizableArrayBag<>(3);
+=======
+      boolean found = false;
+	  Node currentNode = firstNode;
+	  while(!found && (currentNode != null)){
+		  if(anEntry.equals(currentNode.data)){
+			  found = true;
+		  }
+		  else{
+			  currentNode = currentNode.next;
+		  }
+	  }
+	  return found;
+   } // end contains
+   public BagInterface<T> union(BagInterface<T> bag2){
+	BagInterface<T> result = new LinkedBag<>();
+	int index = 0;
+      Node currentNode = firstNode;
+      while ((index < numberOfEntries) && (currentNode != null))
+      {
+		  result.add(currentNode.data);
+         index++;
+         currentNode = currentNode.next;
+      } 
+	  T[] arr = bag2.toArray();
+	  for(int i =0; i<arr.length; i++){
+		  result.add(arr[i]);
+	  }
+
+	return result;
+ }
+ public BagInterface<T> difference(BagInterface<T> bag2){
+	BagInterface<T> result = new LinkedBag<>();
+	int index = 0;
+		Node currentNode = firstNode;
+	while((index<numberOfEntries)&& (currentNode != null)){
+		if(bag2.getFrequencyOf(currentNode.data)>=1 && result.getFrequencyOf(currentNode.data)<1){
+			int count = 0;
+			while(count < Math.min(this.getFrequencyOf(currentNode.data),bag2.getFrequencyOf(currentNode.data))){
+				result.add(currentNode.data);
+			}
+		}
+	}
+	return result;
+ }
+ public BagInterface<T> intersect(BagInterface<T> bag2){
+	BagInterface<T> result = new LinkedBag<>();
+
+>>>>>>> b529e9a (added methods but no comments yet)
 	return result;
  }
 	private class Node

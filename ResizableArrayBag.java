@@ -223,6 +223,7 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
          throw new SecurityException ("ArrayBag object is corrupt.");
    } // end checkintegrity
    public BagInterface<T> union(BagInterface<T> bag2){
+<<<<<<< HEAD
       BagInterface<T> result = new ResizableArrayBag<>(3);
       return result;
    }
@@ -232,6 +233,27 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
    }
    public BagInterface<T> intersect(BagInterface<T> bag2){
       BagInterface<T> result = new ResizableArrayBag<>(3);
+=======
+      BagInterface<T> result = new ResizableArrayBag<>(getCurrentSize() + bag2.getCurrentSize());
+      T[] arr1 = this.toArray();
+      T[] arr2 = bag2.toArray();
+      
+      for(int i =0; i<arr1.length; i++){
+         result.add((T)arr1[i]);
+      }
+      for(int i =0; i<arr2.length; i++){
+         
+         result.add((T)arr2[i]);
+      }
+      return result;
+   }
+   public BagInterface<T> difference(BagInterface<T> bag2){
+      BagInterface<T> result = new ResizableArrayBag<>();
+      return result;
+   }
+   public BagInterface<T> intersect(BagInterface<T> bag2){
+      BagInterface<T> result = new ResizableArrayBag<>();
+>>>>>>> b529e9a (added methods but no comments yet)
       return result;
    }
 } // end ResizableArrayBag

@@ -3,7 +3,7 @@
     @author Frank M. Carrano, Timothy M. Henry
     @version 5.0
 */
-public class LinkedBagDemo1
+public class LinkedBagDemo
 {
 	public static void main(String[] args) 
 	{
