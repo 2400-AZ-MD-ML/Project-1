@@ -98,20 +98,31 @@ public final class LinkedBag<T> implements BagInterface<T>
 	public int getFrequencyOf(T anEntry)
    {
 <<<<<<< HEAD
+<<<<<<< HEAD
       return 0; // STUB
 =======
       int frequency = 0;
 	  int counter = 0;
 	  Node currentNode = firstNode; 
 	  while((counter<numberOfEntries)&& (currentNode != null)){
+=======
+      int frequency = 0; //initalizes the variable that we will return
+	  int counter = 0; //create variable that will make sure we do not go over the amount of elements in the bag
+	  Node currentNode = firstNode; //create a Node that holds reference to the first node
+	  while((counter<numberOfEntries)&& (currentNode != null)){ //loop through the bag and check if it equals to the entry, if it does increment
+>>>>>>> 74c2dd7 (fixed methods, and added comments, have not added checkIntegrity or check for maxCapacity)
 		  if(anEntry.equals(currentNode.data)){
 			  frequency++;
 		  }
 		  counter++;
 		  currentNode = currentNode.next;
 	  }
+<<<<<<< HEAD
 	  return frequency;
 >>>>>>> b529e9a (added methods but no comments yet)
+=======
+	  return frequency; 
+>>>>>>> 74c2dd7 (fixed methods, and added comments, have not added checkIntegrity or check for maxCapacity)
    } // end getFrequencyOf
 	
 	/** Tests whether this bag contains a given entry.
@@ -120,17 +131,56 @@ public final class LinkedBag<T> implements BagInterface<T>
 	public boolean contains(T anEntry)
    {
 <<<<<<< HEAD
+<<<<<<< HEAD
       return false; // STUB
+=======
+      boolean found = false;
+	  Node currentNode = firstNode;
+	  while(!found && (currentNode != null)){
+		  if(anEntry.equals(currentNode.data)){
+			  found = true;
+		  }
+		  else{
+			  currentNode = currentNode.next;
+		  }
+	  }
+	  return found;
+>>>>>>> 74c2dd7 (fixed methods, and added comments, have not added checkIntegrity or check for maxCapacity)
    } // end contains
    public BagInterface<T> union(BagInterface<T> bag2){
-	BagInterface<T> result = new ResizableArrayBag<>(3);
+	BagInterface<T> result = new LinkedBag<>(); // creates empty bag
+	int index = 0; // creates starting index variable
+      Node currentNode = firstNode; //creates variable that will be at the first node in the LinkedBag
+      while ((index < numberOfEntries) && (currentNode != null)) // loops through the LinkedBag and adds it to result
+      {
+		  result.add(currentNode.data);
+         index++;
+         currentNode = currentNode.next;
+      } 
+	  T[] arr = bag2.toArray(); //converts BagInterface into an array, so we can traverse it
+	  for(int i =0; i<arr.length; i++){ //traverses the array and adds it into the result bag
+		  result.add(arr[i]);
+	  }
+
 	return result;
  }
  public BagInterface<T> difference(BagInterface<T> bag2){
-	BagInterface<T> result = new ResizableArrayBag<>(3);
+	BagInterface<T> result = new LinkedBag<>(); //creates empty bag
+	int index = 0; // creates index to traverse the LinkedBag
+		Node currentNode = firstNode; //creates variable to look into the first node, and then start traversing the LinkedBag
+	while((index<numberOfEntries)&& (currentNode != null)){ // checks if the entry is not in result and if the entry occurs more than in the first bag than the second
+		if(this.getFrequencyOf(currentNode.data)-bag2.getFrequencyOf(currentNode.data)>=1 && result.getFrequencyOf(currentNode.data)<1){
+			int count = 0;
+			while(count < this.getFrequencyOf(currentNode.data)-bag2.getFrequencyOf(currentNode.data)){
+				result.add(currentNode.data);
+				count++;
+			}
+		}
+	}
 	return result;
  }
  public BagInterface<T> intersect(BagInterface<T> bag2){
+<<<<<<< HEAD
 	BagInterface<T> result = new ResizableArrayBag<>(3);
 =======
       boolean found = false;
@@ -180,6 +230,10 @@ public final class LinkedBag<T> implements BagInterface<T>
 	BagInterface<T> result = new LinkedBag<>();
 
 >>>>>>> b529e9a (added methods but no comments yet)
+=======
+	BagInterface<T> result = new LinkedBag<>();
+
+>>>>>>> 74c2dd7 (fixed methods, and added comments, have not added checkIntegrity or check for maxCapacity)
 	return result;
  }
 	private class Node
