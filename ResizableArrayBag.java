@@ -223,10 +223,7 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
          throw new SecurityException ("ArrayBag object is corrupt.");
    } // end checkintegrity
    public BagInterface<T> union(BagInterface<T> bag2){
-<<<<<<< HEAD
-<<<<<<< HEAD
       BagInterface<T> result = new ResizableArrayBag<>(3);
-=======
       BagInterface<T> result = new ResizableArrayBag<>(getCurrentSize() + bag2.getCurrentSize());
       T[] arr1 = this.toArray();
       T[] arr2 = bag2.toArray();
@@ -238,7 +235,6 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
          
          result.add((T)arr2[i]);
       }
->>>>>>> 74c2dd7 (fixed methods, and added comments, have not added checkIntegrity or check for maxCapacity)
       return result;
    }
    public BagInterface<T> difference(BagInterface<T> bag2)
@@ -262,32 +258,8 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
       return result;
    }
    public BagInterface<T> intersect(BagInterface<T> bag2){
-<<<<<<< HEAD
       BagInterface<T> result = new ResizableArrayBag<>(3);
-=======
-      BagInterface<T> result = new ResizableArrayBag<>(getCurrentSize() + bag2.getCurrentSize());
-      T[] arr1 = this.toArray();
-      T[] arr2 = bag2.toArray();
-      
-      for(int i =0; i<arr1.length; i++){
-         result.add((T)arr1[i]);
-      }
-      for(int i =0; i<arr2.length; i++){
-         
-         result.add((T)arr2[i]);
-      }
-      return result;
-   }
-   // public BagInterface<T> difference(BagInterface<T> bag2){
-   //    BagInterface<T> result = new ResizableArrayBag<>();
-   //    return result;
-   // }
-   public BagInterface<T> intersect(BagInterface<T> bag2){
       BagInterface<T> result = new ResizableArrayBag<>();
->>>>>>> b529e9a (added methods but no comments yet)
-=======
-      BagInterface<T> result = new ResizableArrayBag<>();
->>>>>>> 74c2dd7 (fixed methods, and added comments, have not added checkIntegrity or check for maxCapacity)
       return result;
    }
 } // end ResizableArrayBag

@@ -97,32 +97,26 @@ public final class LinkedBag<T> implements BagInterface<T>
 		 @return  The number of times anEntry appears in the bag. */
 	public int getFrequencyOf(T anEntry)
    {
-<<<<<<< HEAD
-<<<<<<< HEAD
       return 0; // STUB
-=======
+
       int frequency = 0;
 	  int counter = 0;
 	  Node currentNode = firstNode; 
 	  while((counter<numberOfEntries)&& (currentNode != null)){
-=======
       int frequency = 0; //initalizes the variable that we will return
 	  int counter = 0; //create variable that will make sure we do not go over the amount of elements in the bag
 	  Node currentNode = firstNode; //create a Node that holds reference to the first node
 	  while((counter<numberOfEntries)&& (currentNode != null)){ //loop through the bag and check if it equals to the entry, if it does increment
->>>>>>> 74c2dd7 (fixed methods, and added comments, have not added checkIntegrity or check for maxCapacity)
+
 		  if(anEntry.equals(currentNode.data)){
 			  frequency++;
 		  }
 		  counter++;
 		  currentNode = currentNode.next;
-	  }
-<<<<<<< HEAD
+		}
+
 	  return frequency;
->>>>>>> b529e9a (added methods but no comments yet)
-=======
-	  return frequency; 
->>>>>>> 74c2dd7 (fixed methods, and added comments, have not added checkIntegrity or check for maxCapacity)
+	}
    } // end getFrequencyOf
 	
 	/** Tests whether this bag contains a given entry.
@@ -130,10 +124,8 @@ public final class LinkedBag<T> implements BagInterface<T>
 		 @return  True if the bag contains anEntry, or false otherwise. */
 	public boolean contains(T anEntry)
    {
-<<<<<<< HEAD
-<<<<<<< HEAD
       return false; // STUB
-=======
+
       boolean found = false;
 	  Node currentNode = firstNode;
 	  while(!found && (currentNode != null)){
@@ -145,7 +137,7 @@ public final class LinkedBag<T> implements BagInterface<T>
 		  }
 	  }
 	  return found;
->>>>>>> 74c2dd7 (fixed methods, and added comments, have not added checkIntegrity or check for maxCapacity)
+
    } // end contains
    public BagInterface<T> union(BagInterface<T> bag2){
 	BagInterface<T> result = new LinkedBag<>(); // creates empty bag
@@ -180,9 +172,7 @@ public final class LinkedBag<T> implements BagInterface<T>
 	return result;
  }
  public BagInterface<T> intersect(BagInterface<T> bag2){
-<<<<<<< HEAD
 	BagInterface<T> result = new ResizableArrayBag<>(3);
-=======
       boolean found = false;
 	  Node currentNode = firstNode;
 	  while(!found && (currentNode != null)){
@@ -229,11 +219,11 @@ public final class LinkedBag<T> implements BagInterface<T>
  public BagInterface<T> intersect(BagInterface<T> bag2){
 	BagInterface<T> result = new LinkedBag<>();
 
->>>>>>> b529e9a (added methods but no comments yet)
-=======
+
+
 	BagInterface<T> result = new LinkedBag<>();
 
->>>>>>> 74c2dd7 (fixed methods, and added comments, have not added checkIntegrity or check for maxCapacity)
+
 	return result;
  }
 	private class Node
