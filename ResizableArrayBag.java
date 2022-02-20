@@ -223,45 +223,28 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
          throw new SecurityException ("ArrayBag object is corrupt.");
    } // end checkintegrity
    public BagInterface<T> union(BagInterface<T> bag2){
-      BagInterface<T> result = new ResizableArrayBag<>(3);
+
       BagInterface<T> result = new ResizableArrayBag<>(getCurrentSize() + bag2.getCurrentSize());
-      T[] arr1 = this.toArray();
-      T[] arr2 = bag2.toArray();
-      
-      for(int i =0; i<arr1.length; i++){
-         result.add((T)arr1[i]);
-      }
-      for(int i =0; i<arr2.length; i++){
-         
-         result.add((T)arr2[i]);
-      }
+   
+      return result;
+   }
+
+
+   public BagInterface<T> intersect(BagInterface<T> bag2){
+
+
+      BagInterface<T> result = new ResizableArrayBag<>(getCurrentSize() + bag2.getCurrentSize());
+
       return result;
    }
    public BagInterface<T> difference(BagInterface<T> bag2)
    {
       BagInterface<T> result = new ResizableArrayBag<>();
-      T[] arr1 = this.toArray();
-      T[] arr2 = bag2.toArray();
+      return result;
+   }
 
-      for(int i = 0; i < arr1.length; i++)
-      {
-         if(this.getFrequencyOf(arr1[i]) - bag2.getFrequencyOf(arr1[i]) >= 1 && result.getFrequencyOf(arr1[i]) < 1)
-         {
-            int count = 0;
-            while(count < getFrequencyOf(arr1[i]) - getFrequencyOf(arr2[i]))
-            {
-               result.add(arr1[i]);
-               count++;
-            }
-         }
-      }
-      return result;
-   }
-   public BagInterface<T> intersect(BagInterface<T> bag2){
-      BagInterface<T> result = new ResizableArrayBag<>(3);
-      BagInterface<T> result = new ResizableArrayBag<>();
-      return result;
-   }
+   
+
 } // end ResizableArrayBag
 
 /*

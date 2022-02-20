@@ -10,11 +10,14 @@ public final class LinkedBag<T> implements BagInterface<T>
 {
 	private Node firstNode;       // Reference to first node
 	private int numberOfEntries;
+	private static final int MAX_CAPACITY = 10000;
+	private boolean integrityOK = false;
 
 	public LinkedBag()
 	{
 		firstNode = null;
       numberOfEntries = 0;
+	  integrityOK = true;
 	} // end default constructor
 
 	/** Adds a new entry to this bag.
@@ -97,26 +100,17 @@ public final class LinkedBag<T> implements BagInterface<T>
 		 @return  The number of times anEntry appears in the bag. */
 	public int getFrequencyOf(T anEntry)
    {
-      return 0; // STUB
-
-      int frequency = 0;
-	  int counter = 0;
-	  Node currentNode = firstNode; 
-	  while((counter<numberOfEntries)&& (currentNode != null)){
       int frequency = 0; //initalizes the variable that we will return
 	  int counter = 0; //create variable that will make sure we do not go over the amount of elements in the bag
 	  Node currentNode = firstNode; //create a Node that holds reference to the first node
 	  while((counter<numberOfEntries)&& (currentNode != null)){ //loop through the bag and check if it equals to the entry, if it does increment
-
 		  if(anEntry.equals(currentNode.data)){
 			  frequency++;
 		  }
 		  counter++;
 		  currentNode = currentNode.next;
-		}
-
-	  return frequency;
-	}
+	  }
+	  return frequency; 
    } // end getFrequencyOf
 	
 	/** Tests whether this bag contains a given entry.
@@ -124,8 +118,6 @@ public final class LinkedBag<T> implements BagInterface<T>
 		 @return  True if the bag contains anEntry, or false otherwise. */
 	public boolean contains(T anEntry)
    {
-      return false; // STUB
-
       boolean found = false;
 	  Node currentNode = firstNode;
 	  while(!found && (currentNode != null)){
@@ -137,9 +129,16 @@ public final class LinkedBag<T> implements BagInterface<T>
 		  }
 	  }
 	  return found;
-
    } // end contains
+
+    // Throws an exception if receiving object is not initialized.
+	private void checkintegrity()
+	{
+	   if (!integrityOK)
+		  throw new SecurityException ("ArrayBag object is corrupt.");
+	} // end checkintegrity
    public BagInterface<T> union(BagInterface<T> bag2){
+	   checkintegrity();
 	BagInterface<T> result = new LinkedBag<>(); // creates empty bag
 	int index = 0; // creates starting index variable
       Node currentNode = firstNode; //creates variable that will be at the first node in the LinkedBag
@@ -150,6 +149,10 @@ public final class LinkedBag<T> implements BagInterface<T>
          currentNode = currentNode.next;
       } 
 	  T[] arr = bag2.toArray(); //converts BagInterface into an array, so we can traverse it
+	  if(arr.length + this.numberOfEntries > MAX_CAPACITY){ // checks if the bag is over the max capacity and throws an exception if it does
+		throw new IllegalStateException("Attempt to create a bag whose capacity exceeds " +
+										"allowed maximum of " + MAX_CAPACITY);
+	  }
 	  for(int i =0; i<arr.length; i++){ //traverses the array and adds it into the result bag
 		  result.add(arr[i]);
 	  }
@@ -157,72 +160,32 @@ public final class LinkedBag<T> implements BagInterface<T>
 	return result;
  }
  public BagInterface<T> difference(BagInterface<T> bag2){
+	 checkintegrity();
 	BagInterface<T> result = new LinkedBag<>(); //creates empty bag
 	int index = 0; // creates index to traverse the LinkedBag
 		Node currentNode = firstNode; //creates variable to look into the first node, and then start traversing the LinkedBag
+		int size = 0;
 	while((index<numberOfEntries)&& (currentNode != null)){ // checks if the entry is not in result and if the entry occurs more than in the first bag than the second
-		if(this.getFrequencyOf(currentNode.data)-bag2.getFrequencyOf(currentNode.data)>=1 && result.getFrequencyOf(currentNode.data)<1){
+		if(!result.contains(currentNode.data) && this.getFrequencyOf(currentNode.data)-bag2.getFrequencyOf(currentNode.data)>=1){
 			int count = 0;
 			while(count < this.getFrequencyOf(currentNode.data)-bag2.getFrequencyOf(currentNode.data)){
+				if(size> MAX_CAPACITY){
+					throw new IllegalStateException("Attempt to create a bag whose capacity exceeds " +
+										"allowed maximum of " + MAX_CAPACITY);
+				}
 				result.add(currentNode.data);
 				count++;
+				size++;
 			}
 		}
+		currentNode = currentNode.next;
+		index++;
 	}
 	return result;
  }
  public BagInterface<T> intersect(BagInterface<T> bag2){
-	BagInterface<T> result = new ResizableArrayBag<>(3);
-      boolean found = false;
-	  Node currentNode = firstNode;
-	  while(!found && (currentNode != null)){
-		  if(anEntry.equals(currentNode.data)){
-			  found = true;
-		  }
-		  else{
-			  currentNode = currentNode.next;
-		  }
-	  }
-	  return found;
-   } // end contains
-   public BagInterface<T> union(BagInterface<T> bag2){
-	BagInterface<T> result = new LinkedBag<>();
-	int index = 0;
-      Node currentNode = firstNode;
-      while ((index < numberOfEntries) && (currentNode != null))
-      {
-		  result.add(currentNode.data);
-         index++;
-         currentNode = currentNode.next;
-      } 
-	  T[] arr = bag2.toArray();
-	  for(int i =0; i<arr.length; i++){
-		  result.add(arr[i]);
-	  }
-
-	return result;
- }
- public BagInterface<T> difference(BagInterface<T> bag2){
-	BagInterface<T> result = new LinkedBag<>();
-	int index = 0;
-		Node currentNode = firstNode;
-	while((index<numberOfEntries)&& (currentNode != null)){
-		if(bag2.getFrequencyOf(currentNode.data)>=1 && result.getFrequencyOf(currentNode.data)<1){
-			int count = 0;
-			while(count < Math.min(this.getFrequencyOf(currentNode.data),bag2.getFrequencyOf(currentNode.data))){
-				result.add(currentNode.data);
-			}
-		}
-	}
-	return result;
- }
- public BagInterface<T> intersect(BagInterface<T> bag2){
-	BagInterface<T> result = new LinkedBag<>();
-
-
 
 	BagInterface<T> result = new LinkedBag<>();
-
 
 	return result;
  }
