@@ -241,8 +241,24 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
 >>>>>>> 74c2dd7 (fixed methods, and added comments, have not added checkIntegrity or check for maxCapacity)
       return result;
    }
-   public BagInterface<T> difference(BagInterface<T> bag2){
+   public BagInterface<T> difference(BagInterface<T> bag2)
+   {
       BagInterface<T> result = new ResizableArrayBag<>();
+      T[] arr1 = this.toArray();
+      T[] arr2 = bag2.toArray();
+
+      for(int i = 0; i < arr1.length; i++)
+      {
+         if(this.getFrequencyOf(arr1[i]) - bag2.getFrequencyOf(arr1[i]) >= 1 && result.getFrequencyOf(arr1[i]) < 1)
+         {
+            int count = 0;
+            while(count < getFrequencyOf(arr1[i]) - getFrequencyOf(arr2[i]))
+            {
+               result.add(arr1[i]);
+               count++;
+            }
+         }
+      }
       return result;
    }
    public BagInterface<T> intersect(BagInterface<T> bag2){
@@ -262,10 +278,10 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
       }
       return result;
    }
-   public BagInterface<T> difference(BagInterface<T> bag2){
-      BagInterface<T> result = new ResizableArrayBag<>();
-      return result;
-   }
+   // public BagInterface<T> difference(BagInterface<T> bag2){
+   //    BagInterface<T> result = new ResizableArrayBag<>();
+   //    return result;
+   // }
    public BagInterface<T> intersect(BagInterface<T> bag2){
       BagInterface<T> result = new ResizableArrayBag<>();
 >>>>>>> b529e9a (added methods but no comments yet)
