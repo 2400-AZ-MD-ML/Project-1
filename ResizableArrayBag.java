@@ -239,7 +239,21 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
    }
    public BagInterface<T> difference(BagInterface<T> bag2)
    {
+      checkintegrity();
       BagInterface<T> result = new ResizableArrayBag<>();
+      
+      for(int i = 0; i < numberOfEntries; i++)
+      {
+         if(getFrequencyOf(bag[i]) - bag2.getFrequencyOf(bag[i]) >= 1 && result.getFrequencyOf(bag[i]) < 1)
+         {
+            int count = 0;
+            while(count < getFrequencyOf(bag[i]) - bag2.getFrequencyOf(bag[i]))
+            {
+               result.add(bag[i]);
+               count++;
+            }
+         }
+      }
       return result;
    }
 
