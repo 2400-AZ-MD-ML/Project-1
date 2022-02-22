@@ -229,10 +229,16 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
       }
       BagInterface<T> result = new ResizableArrayBag<>();
       for(int i= 0; i<numberOfEntries; i++){
+         if(bag[i] == null){
+            throw new IllegalStateException("Bag 1 has a null object within it");
+         }
          result.add(bag[i]);
       }
       T[] arr = bag2.toArray();
       for(int i=0; i<arr.length; i++){
+         if(arr[i] == null){
+            throw new IllegalStateException("Bag 2 has a null object within it");
+         }
          if(i+numberOfEntries >MAX_CAPACITY){
             throw new IllegalStateException("Attempt to create a bag whose capacity exceeds " +
 										"allowed maximum of " + MAX_CAPACITY);
