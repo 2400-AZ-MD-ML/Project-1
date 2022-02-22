@@ -7,6 +7,7 @@ public class ArrayBagTest {
         bag1.add("c");
         bag1.add("d");
         bag1.add("e");
+        
         BagInterface<String> bag2= new ResizableArrayBag<>();
         bag2.add("c");
         bag2.add("g");
@@ -22,5 +23,6 @@ public class ArrayBagTest {
         for(int i =0; i<arr.length; i++){
             System.out.print(arr[i]);
         }
+        System.out.println();
     }
 }

@@ -223,12 +223,24 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
          throw new SecurityException ("ArrayBag object is corrupt.");
    } // end checkintegrity
    public BagInterface<T> union(BagInterface<T> bag2){
-
-      BagInterface<T> result = new ResizableArrayBag<>(getCurrentSize() + bag2.getCurrentSize());
-   
+      checkintegrity();
+      if(this == null || bag2 == null){
+         throw new IllegalStateException("Attempt to create a new bag when one of the two bags are null");
+      }
+      BagInterface<T> result = new ResizableArrayBag<>();
+      for(int i= 0; i<numberOfEntries; i++){
+         result.add(bag[i]);
+      }
+      T[] arr = bag2.toArray();
+      for(int i=0; i<arr.length; i++){
+         if(i+numberOfEntries >MAX_CAPACITY){
+            throw new IllegalStateException("Attempt to create a bag whose capacity exceeds " +
+										"allowed maximum of " + MAX_CAPACITY);
+         }
+         result.add(arr[i]);
+      }
       return result;
    }
-
 
    public BagInterface<T> intersect(BagInterface<T> bag2){
 
@@ -240,6 +252,9 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
    public BagInterface<T> difference(BagInterface<T> bag2)
    {
       checkintegrity();
+      if(this == null || bag2 == null){
+         throw new IllegalStateException("Attempt to create a new bag when one of the two bags are null");
+      }
       BagInterface<T> result = new ResizableArrayBag<>();
       
       for(int i = 0; i < numberOfEntries; i++)
