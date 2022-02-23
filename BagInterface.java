@@ -46,22 +46,22 @@ public interface BagInterface<T>
 		 @return  A newly allocated array of all the entries in the bag.
                 Note: If the bag is empty, the returned array is empty. */
 	public T[] toArray();
-	/** Looks at all entries in 2 bags
-	  @param bag2 the second bag being combined with the original bag
-		@return A newly allocated bag with all entries of both bags
-				Note: if both are null, returns empty bag. 
+	/** Looks at all entries in 2 bags, adds all entries into a new bag.
+	  @param bag2 the second bag being combined with the original bag.
+		@return A newly allocated bag with all entries of both bags.
+				Note: if either are null, throws an exception.
 	*/
 	public BagInterface<T> union(BagInterface<T> bag2);
-		/** Looks at all entries in 2 bags, compares them
-		@param bag2 the second bag being compared with the original bag to find what items they have in common
-		@return A newly allocated bag with all entries that both bags have in common
-				Note: if both are null, returns empty bag. 
+		/** Looks at all entries in 2 bags, compares them and adds elements into a new bag if they exclusively in the first bag or the number of times greater in the first bag than the second bag.
+		@param bag2 the second bag being compared with the original bag to find what items they have in common.
+		@return A newly allocated bag with all entries that both bags have in common.
+				Note: if either are null, throws an exception.
 	*/
 	public BagInterface<T> intersect(BagInterface<T> bag2);
-		/** Looks at all entries in 2 bags, compares them
-		@param bag2 the second bag being compared with the original bag to find the difference wtih
-		@return A newly allocated bag that are exclusively only in the first bag
-				Note: if both are null, returns empty bag. 
+		/** Looks at all entries in 2 bags, compares them, adds the elements that are in both bags with similar occurances.
+		@param bag2 the second bag being compared with the original bag to find the difference wtih.
+		@return A newly allocated bag that are exclusively only in the first bag.
+				Note: if either are null, throws an exception.
 	*/
 	public BagInterface<T> difference(BagInterface<T> bag2);
 } // end BagInterface

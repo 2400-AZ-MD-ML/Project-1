@@ -222,44 +222,91 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
       if (!integrityOK)
          throw new SecurityException ("ArrayBag object is corrupt.");
    } // end checkintegrity
+
+   /**
+	 * Combines all the elements in both bags.
+	 * @param bag2 The bag being combined with.
+	 * @return a bag with all the elements in bag1 and bag2.
+	 */
    public BagInterface<T> union(BagInterface<T> bag2){
+     //checks the conditions if the bag is elligible to use union
       checkintegrity();
-      if(this == null || bag2 == null){
-         throw new IllegalStateException("Attempt to create a new bag when one of the two bags are null");
+      
+      if(bag2== null){
+         throw new IllegalStateException("Bag2 is null");
       }
       BagInterface<T> result = new ResizableArrayBag<>();
-      for(int i= 0; i<numberOfEntries; i++){
-         if(bag[i] == null){
-            throw new IllegalStateException("Bag 1 has a null object within it");
-         }
+      for(int i =0; i<numberOfEntries; i++){
          result.add(bag[i]);
       }
       T[] arr = bag2.toArray();
-      for(int i=0; i<arr.length; i++){
-         if(arr[i] == null){
-            throw new IllegalStateException("Bag 2 has a null object within it");
-         }
-         if(i+numberOfEntries >MAX_CAPACITY){
+      for(int i =0; i<arr.length; i++){
+         if(i + numberOfEntries > MAX_CAPACITY){
+            
             throw new IllegalStateException("Attempt to create a bag whose capacity exceeds " +
-										"allowed maximum of " + MAX_CAPACITY);
+            "allowed maximum of " + MAX_CAPACITY);
          }
          result.add(arr[i]);
       }
       return result;
    }
+    	/**
+     * Finds the elements that both bags have in common.
+     * @param bag2 the second bag the first bag is comparing to.
+     * @return a new bag that contains all the elements that both bags have in common and a similar amount of occurances.
+     */
 
    public BagInterface<T> intersect(BagInterface<T> bag2){
+      checkintegrity();
+      if(bag2== null){
+         throw new IllegalStateException("Bag2 is null");
+      }
+      BagInterface<T> result = new ResizableArrayBag<>();
+      int size = 0;
+      for (int i = 0; i < numberOfEntries; i++) {
+         //creating variables which hold the frequency of variable i in each bag
+         int bag1Freq = getFrequencyOf(bag[i]);
+         int bag2Freq = bag2.getFrequencyOf(bag[i]);
 
+         int numIntersect = 0; //variable that holds # of intersecting elements b/t two bags
 
-      BagInterface<T> result = new ResizableArrayBag<>(getCurrentSize() + bag2.getCurrentSize());
+         //logical block that checks which bag has the least amount of an intersecting element
+         if (bag1Freq > 0 && bag2Freq > 0) {
+            if (bag1Freq < bag2Freq) {
+               numIntersect = bag1Freq;
+            }
+            else {
+               numIntersect = bag2Freq;
+            }
+         }
 
-      return result;
+         //will add intersecting element to array if not added during previous iterations
+         if(!result.contains(bag[i])){
+            for (int j = 0; j < numIntersect; j++) {
+               if(size > MAX_CAPACITY){
+            
+                  throw new IllegalStateException("Attempt to create a bag whose capacity exceeds " +
+                  "allowed maximum of " + MAX_CAPACITY);
+               }
+               result.add(bag[i]);
+               size++;
+            }
+         }
+      }
+
+      return result; //return resulting bag that holds intersecting elements b/t 2 compared bags
    }
+   
+   	/**  finds difference between first bag and second bag.
+	 * @param bag2 is second bag being compared to.
+	 * @return will return a bag of items that are only in the first bag than the second bag, or the amount of times in the first bag
+	 * subtracted by the amount of times in the second bag.
+	 */
    public BagInterface<T> difference(BagInterface<T> bag2)
    {
       checkintegrity();
-      if(this == null || bag2 == null){
-         throw new IllegalStateException("Attempt to create a new bag when one of the two bags are null");
+      if(bag2 == null){
+         throw new IllegalStateException("bag2 is null");
       }
       BagInterface<T> result = new ResizableArrayBag<>();
       

@@ -137,8 +137,17 @@ public final class LinkedBag<T> implements BagInterface<T>
 	   if (!integrityOK)
 		  throw new SecurityException ("ArrayBag object is corrupt.");
 	} // end checkintegrity
+
+	/**
+	 * Combines all the elements in both bags.
+	 * @param bag2 The bag being combined with.
+	 * @return a bag with all the elements in bag1 and bag2.
+	 */
    public BagInterface<T> union(BagInterface<T> bag2){
 	   checkintegrity();
+	   if(bag2== null){
+		throw new IllegalStateException("Bag2 is null");
+	 }
 	BagInterface<T> result = new LinkedBag<>(); // creates empty bag
 	int index = 0; // creates starting index variable
       Node currentNode = firstNode; //creates variable that will be at the first node in the LinkedBag
@@ -154,13 +163,25 @@ public final class LinkedBag<T> implements BagInterface<T>
 										"allowed maximum of " + MAX_CAPACITY);
 	  }
 	  for(int i =0; i<arr.length; i++){ //traverses the array and adds it into the result bag
+		if(i+numberOfEntries >MAX_CAPACITY){
+			throw new IllegalStateException("Attempt to create a bag whose capacity exceeds " +
+			"allowed maximum of " + MAX_CAPACITY);
+		}
 		  result.add(arr[i]);
 	  }
 
 	return result;
  }
+	/**  finds difference between first bag and second bag.
+	 * @param bag2 is second bag being compared to.
+	 * @return will return a bag of items that are only in the first bag than the second bag, or the amount of times in the first bag
+	 * subtracted by the amount of times in the second bag.
+	 */
  public BagInterface<T> difference(BagInterface<T> bag2){
 	 checkintegrity();
+	 if(bag2== null){
+		throw new IllegalStateException("Bag2 is null");
+	 }
 	BagInterface<T> result = new LinkedBag<>(); //creates empty bag
 	int index = 0; // creates index to traverse the LinkedBag
 		Node currentNode = firstNode; //creates variable to look into the first node, and then start traversing the LinkedBag
@@ -183,9 +204,49 @@ public final class LinkedBag<T> implements BagInterface<T>
 	}
 	return result;
  }
- public BagInterface<T> intersect(BagInterface<T> bag2){
 
-	BagInterface<T> result = new LinkedBag<>();
+	/**
+     * Finds the elements that both bags have in common.
+     * @param bag2 the second bag the first bag is comparing to.
+     * @return a new bag that contains all the elements that both bags have in common and a similar amount of occurances.
+     */
+ public BagInterface<T> intersect(BagInterface<T> bag2){
+	checkintegrity();
+	if(bag2== null){
+		throw new IllegalStateException("Bag2 is null");
+	 }
+	BagInterface<T> result = new ResizableArrayBag<>(3);
+	 int size = 0;
+	Node currentNode = firstNode;
+
+	for (int i = 0; i < getCurrentSize(); i++) {
+		//creating variables which hold the frequency of variable i in each bag
+		int bag1Freq = getFrequencyOf(currentNode.data);
+		int bag2Freq = bag2.getFrequencyOf(currentNode.data);
+
+		int numIntersect = 0;
+
+		if (bag1Freq > 0 && bag2Freq > 0) {
+            if (bag1Freq < bag2Freq) {
+               numIntersect = bag1Freq;
+            }
+            else {
+               numIntersect = bag2Freq;
+            }
+         }
+		 //checks conditions to add it into the new bag
+		 if(!result.contains(currentNode.data)){
+            for (int j = 0; j < numIntersect; j++) {
+				if(size> MAX_CAPACITY){
+					throw new IllegalStateException("Attempt to create a bag whose capacity exceeds " +
+										"allowed maximum of " + MAX_CAPACITY);
+				}
+               result.add(currentNode.data);
+			   size++;
+            }
+         }
+		currentNode = currentNode.next;
+	}
 
 	return result;
  }
