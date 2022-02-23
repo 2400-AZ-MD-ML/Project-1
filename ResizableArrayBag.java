@@ -237,6 +237,9 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
       }
       BagInterface<T> result = new ResizableArrayBag<>();
       for(int i =0; i<numberOfEntries; i++){
+         if(bag[i]== null){
+            throw new IllegalStateException("Bag1 has a null element");
+         }
          result.add(bag[i]);
       }
       T[] arr = bag2.toArray();
@@ -245,6 +248,9 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
             
             throw new IllegalStateException("Attempt to create a bag whose capacity exceeds " +
             "allowed maximum of " + MAX_CAPACITY);
+         } 
+         if(arr[i]== null){
+            throw new IllegalStateException("Bag2 has a null element");
          }
          result.add(arr[i]);
       }
@@ -265,6 +271,11 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
       int size = 0;
       for (int i = 0; i < numberOfEntries; i++) {
          //creating variables which hold the frequency of variable i in each bag
+         if(bag[i]==null){
+      
+               throw new IllegalStateException("Bag1 has a null element");
+
+         }
          int bag1Freq = getFrequencyOf(bag[i]);
          int bag2Freq = bag2.getFrequencyOf(bag[i]);
 
@@ -309,16 +320,27 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
          throw new IllegalStateException("bag2 is null");
       }
       BagInterface<T> result = new ResizableArrayBag<>();
-      
+      int size = 0;
       for(int i = 0; i < numberOfEntries; i++)
       {
+         
+         if(bag[i]==null){
+      
+            throw new IllegalStateException("Bag1 has a null element");
+         }
          if(getFrequencyOf(bag[i]) - bag2.getFrequencyOf(bag[i]) >= 1 && result.getFrequencyOf(bag[i]) < 1)
          {
             int count = 0;
             while(count < getFrequencyOf(bag[i]) - bag2.getFrequencyOf(bag[i]))
             {
+               if(size > MAX_CAPACITY){
+            
+                  throw new IllegalStateException("Attempt to create a bag whose capacity exceeds " +
+                  "allowed maximum of " + MAX_CAPACITY);
+               }
                result.add(bag[i]);
                count++;
+               size++;
             }
          }
       }

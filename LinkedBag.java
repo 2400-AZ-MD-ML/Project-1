@@ -153,6 +153,9 @@ public final class LinkedBag<T> implements BagInterface<T>
       Node currentNode = firstNode; //creates variable that will be at the first node in the LinkedBag
       while ((index < numberOfEntries) && (currentNode != null)) // loops through the LinkedBag and adds it to result
       {
+		  if(currentNode.data == null){
+		throw new IllegalStateException("Bag1 has a null element");
+		  }
 		  result.add(currentNode.data);
          index++;
          currentNode = currentNode.next;
@@ -166,6 +169,9 @@ public final class LinkedBag<T> implements BagInterface<T>
 		if(i+numberOfEntries >MAX_CAPACITY){
 			throw new IllegalStateException("Attempt to create a bag whose capacity exceeds " +
 			"allowed maximum of " + MAX_CAPACITY);
+		}
+		if(arr[i]==null){
+			throw new IllegalStateException("Bag2 has a null element");
 		}
 		  result.add(arr[i]);
 	  }
@@ -187,6 +193,9 @@ public final class LinkedBag<T> implements BagInterface<T>
 		Node currentNode = firstNode; //creates variable to look into the first node, and then start traversing the LinkedBag
 		int size = 0;
 	while((index<numberOfEntries)&& (currentNode != null)){ // checks if the entry is not in result and if the entry occurs more than in the first bag than the second
+		if(currentNode.data == null){
+			throw new IllegalStateException("Bag1 has a null element");
+		}
 		if(!result.contains(currentNode.data) && this.getFrequencyOf(currentNode.data)-bag2.getFrequencyOf(currentNode.data)>=1){
 			int count = 0;
 			while(count < this.getFrequencyOf(currentNode.data)-bag2.getFrequencyOf(currentNode.data)){
@@ -221,6 +230,9 @@ public final class LinkedBag<T> implements BagInterface<T>
 
 	for (int i = 0; i < getCurrentSize(); i++) {
 		//creating variables which hold the frequency of variable i in each bag
+		if(currentNode.data == null){
+			throw new IllegalStateException("Bag1 has a null element");
+			 }
 		int bag1Freq = getFrequencyOf(currentNode.data);
 		int bag2Freq = bag2.getFrequencyOf(currentNode.data);
 
