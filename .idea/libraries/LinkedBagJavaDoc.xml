@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="LinkedBagJavaDoc">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/JavaDoc/LinkedBagJavaDoc/member-search-index.zip!/" />
+      <root url="jar://$PROJECT_DIR$/JavaDoc/LinkedBagJavaDoc/package-search-index.zip!/" />
+      <root url="jar://$PROJECT_DIR$/JavaDoc/LinkedBagJavaDoc/type-search-index.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

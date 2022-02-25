@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="ResizeAbleArrayJavaDoc">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/JavaDoc/ResizeAbleArrayJavaDoc/package-search-index.zip!/" />
+      <root url="jar://$PROJECT_DIR$/JavaDoc/ResizeAbleArrayJavaDoc/member-search-index.zip!/" />
+      <root url="jar://$PROJECT_DIR$/JavaDoc/ResizeAbleArrayJavaDoc/type-search-index.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

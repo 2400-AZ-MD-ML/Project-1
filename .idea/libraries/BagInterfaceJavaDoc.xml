@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="BagInterfaceJavaDoc">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/JavaDoc/BagInterfaceJavaDoc/package-search-index.zip!/" />
+      <root url="jar://$PROJECT_DIR$/JavaDoc/BagInterfaceJavaDoc/member-search-index.zip!/" />
+      <root url="jar://$PROJECT_DIR$/JavaDoc/BagInterfaceJavaDoc/type-search-index.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
