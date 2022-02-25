@@ -328,10 +328,12 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
       
             throw new IllegalStateException("Bag1 has a null element");
          }
-         if(getFrequencyOf(bag[i]) - bag2.getFrequencyOf(bag[i]) >= 1 && result.getFrequencyOf(bag[i]) < 1)
+         int diff = getFrequencyOf(bag[i]) - bag2.getFrequencyOf(bag[i]);
+         int times = result.getFrequencyOf(bag[i]);
+         if(diff >= 1 &&  times < 1)
          {
             int count = 0;
-            while(count < getFrequencyOf(bag[i]) - bag2.getFrequencyOf(bag[i]))
+            while(count < diff)
             {
                if(size > MAX_CAPACITY){
             

@@ -1,4 +1,4 @@
-public class bagDriver {
+public class BagDriver {
     public static void main(String[] args){
         BagInterface<String> bag1= new LinkedBag<>();
         bag1.add("a");
